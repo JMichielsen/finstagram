@@ -9,7 +9,7 @@ We suggest our students use [GitPod](https://www.gitpod.io/) to work on this pro
 
 1. Sign up for GitPod
 2. Fork this repo using the FORK button in the top right [on Github](https://github.com/lighthouse-labs/finstagram)
-3. Open a new tab in your browser (preferably Google Chrome) and visit GitPod with the GitHub URL of your new code project: <https://www.gitpod.io/#https://github.com/YOURUSERNAMEHERE/finstagram> (<mark>Replace YOURUSERNAME with your actual GitHub username</mark>)
+3. Open a new tab in your browser (preferably Google Chrome) and visit GitPod with the GitHub URL of your new code project: <https://www.gitpod.io/#https://github.com/JMichielsen/finstagram> (<mark>Replace YOURUSERNAME with your actual GitHub username</mark>)
 
 ## GitPod Setup Instructions
 
