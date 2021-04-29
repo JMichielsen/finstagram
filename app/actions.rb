@@ -4,7 +4,7 @@ get '/' do              # Main Page
 end
 
 get '/signup' do
-    # setup an empty @user object
+    # setup an empty @user object to prevent signup.erb from erroring out trying to find error messages.
     @user = User.new
 
     # render "app/views/signup.erb"
