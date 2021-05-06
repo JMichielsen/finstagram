@@ -1,3 +1,5 @@
+## This is the controller
+
 helpers do
     def current_user
         User.find_by(id: session[:user_id])
@@ -9,7 +11,9 @@ get '/' do              # Main Page
     erb(:index)
 end
 
-get '/signup' do        # Sign-up Page (blank)
+
+### Sign-up Page (blank)
+get '/signup' do
     # setup an empty @user object to prevent signup.erb from erroring out trying to find error messages.
     @user = User.new
 
@@ -17,8 +21,8 @@ get '/signup' do        # Sign-up Page (blank)
     erb(:signup)                
 end
 
-
-post '/signup' do       # Sign-up Page (submit)
+### Sign-up Page (submit)
+post '/signup' do
     # grab the user input values from params
     email       = params[:email]
     avatar_url  = params[:avatar_url]
@@ -37,10 +41,12 @@ post '/signup' do       # Sign-up Page (submit)
     end
 end
 
-get '/login' do         # Log in page (Blank)
+### Log in Page (blank)
+get '/login' do
     erb(:login)
 end
 
+### Log in Page (submit)
 post '/login' do        # Log in page (submit)
     username = params[:username]
     password = params[:password]
@@ -50,7 +56,7 @@ post '/login' do        # Log in page (submit)
 
     # 2 if that user exists
     if @user
-        # and their password matches (using bCrypt method)
+        # 3 and their password matches (using bCrypt method)
         if @user.authenticate(password)
             session[:user_id] = @user.id
             redirect to ('/')
@@ -63,7 +69,35 @@ post '/login' do        # Log in page (submit)
     end
 end
 
+### log out button
 get '/logout' do
     session[:user_id] = nil
     redirect to ('/')
+end
+
+### New post page
+get '/finstagram_posts/new' do
+    @finstagram_post = FinstagramPost.new
+    erb(:"finstagram_posts/new")
+end
+
+### New post (submit)
+post '/finstagram_posts' do
+    photo_url = params[:photo_url]
+
+    # instantiate new FinstagramPost
+    @finstagram_post = FinstagramPost.new({ photo_url: photo_url, user_id: current_user.id })
+
+    # if @post validates, save
+    if @finstagram_post.save
+        redirect(to('/'))
+    else
+        erb(:"finstagram_posts/new")
+    end
+end
+
+### Individual post pages
+get '/finstagram_posts/:id' do
+    @finstagram_post = FinstagramPost.find(params[:id])
+    erb(:"finstagram_posts/show")
 end

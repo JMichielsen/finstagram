@@ -1,24 +1,18 @@
-<header>
-    <h1>Finstagram</h1>
-</header>
-
-<main role="main">
+<h2>Log in to Finstagram!</h2>
 <ul class="errors">
     <li><%= @error_message if @error_message %></li>
-    </ul>
+</ul>
 
-    <form method="POST" action="/login">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div class="form-group">    
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div class="form-group">
-            <button class="button" type="submit">Log in!</button>
-        </div>
-    </form>
-
-</main>
+<form method="POST" action="/login">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+    </div>
+    <div class="form-group">    
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div class="form-group">
+        <button class="button" type="submit">Log in!</button>
+    </div>
+</form>
