@@ -4,6 +4,11 @@ helpers do
     def current_user
         User.find_by(id: session[:user_id])
     end
+
+    def logged_in?
+        !!current_user
+    end
+
 end
 
 get '/' do              # Main Page
@@ -76,6 +81,11 @@ get '/logout' do
 end
 
 ### New post page
+before '/finstagram_posts/new' do
+    # verify that the user is logged in.
+    redirect to ('/login') unless logged_in?
+end
+
 get '/finstagram_posts/new' do
     @finstagram_post = FinstagramPost.new
     erb(:"finstagram_posts/new")
@@ -100,4 +110,36 @@ end
 get '/finstagram_posts/:id' do
     @finstagram_post = FinstagramPost.find(params[:id])
     erb(:"finstagram_posts/show")
+end
+
+### Submit Comment button
+post '/comments' do
+    # points values from form to variables
+    text = params[:text]
+    finstagram_post_id = params[:finstagram_post_id]
+
+    # instantiate a comment with those values and assign the comment to the 'current_user'
+    comment = Comment.new({ text: text, finstagram_post_id: finstagram_post_id, user_id: current_user.id })
+    # save the comment
+    comment.save
+    # 'redirect' back to wherever we came from
+    redirect(back)
+end
+
+### Add Like button
+post '/likes' do
+    finstagram_post_id = params[:finstagram_post_id]
+    
+    # instantiate the like; and assign it to the 'current_user'
+    like = Like.new({ finstagram_post_id: finstagram_post_id, user_id: current_user.id })
+    like.save
+
+    redirect(back)
+end
+
+### Delete Like button
+delete '/likes/:id' do
+    like = Like.find(params[:id])
+    like.destroy
+    redirect(back)
 end

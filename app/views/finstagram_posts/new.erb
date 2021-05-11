@@ -1,9 +1,6 @@
 <h2>New Post</h2>
-<ul class="errors">
-    <% @finstagram_post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-    <% end %>
-</ul>
+
+<%= erb(:'shared/errors', {locals: { errors: @finstagram_post.errors.full_messages }}) %>
 
 <form method="POST" action="/finstagram_posts">
     <div class="form-group">
